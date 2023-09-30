@@ -1,5 +1,5 @@
 package com.mukss.eventweb.controllers;
-
+ 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
-
+ 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -34,37 +34,50 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-
+ 
+ 
 import com.mukss.eventweb.config.userdetails.CustomUserDetails;
 import com.mukss.eventweb.entities.Event;
+import com.mukss.eventweb.entities.MembershipsDTO;
 import com.mukss.eventweb.entities.User;
 import com.mukss.eventweb.exceptions.UserNotFoundException;
 import com.mukss.eventweb.services.EventService;
 import com.mukss.eventweb.services.UserService;
 import com.mukss.eventweb.entities.Attend;
 import com.mukss.eventweb.entities.AttendsDTO;
-
+ 
 @Controller
 @RequestMapping(value = "/users", produces = MediaType.TEXT_HTML_VALUE)
 public class UserController {
-	
+ 
 	@Autowired
 	private UserService userService;
-	
+ 
 	// TODO: Handle not_found properly
 	@ExceptionHandler(UserNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public String UserNotFoundHandler(UserNotFoundException ex, Model model){
 		model.addAttribute("not_found_id", ex.getMessage());
-		
+ 
 		return "events/not_found";
 	}
-	
+ 
 	// Returns all events as a list, under attribute "posts" of model
 	@GetMapping("/list")
 	public String getUsers(Model model) {
-		model.addAttribute("usersList", userService.findAll());
+ 
+		Iterable<User> ulist = userService.findAll();
+		List<User> memlist = new ArrayList<User>();
+		for (User u : ulist) {
+			memlist.add(u);
+ 
+		}
+ 
+		MembershipsDTO membershipsDTO = new MembershipsDTO();
+		membershipsDTO.setUsersList(memlist);
+ 
+		model.addAttribute("ulist", membershipsDTO);
+ 
 		return "users/list";
 	}
 //	
