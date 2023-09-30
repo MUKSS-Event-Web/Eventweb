@@ -14,9 +14,10 @@
       	<h3> Membership Requests </h3>
           <form action="#" th:object="${membershipsDTO}" method="post" th:action="@{/membership/update}">
             <input sec:authorize="hasAnyAuthority('ADMIN')" type="submit" id="submitButton" th:value="Save">
-          <table class="table table-striped table-hover">
+          <table class="table table-striped table-hover css-serial">
             <thead>
               <tr>
+              	<th>#</th>
                 <th>Username</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -27,15 +28,9 @@
             <tbody>
 
           <tr th:each="user, itemStat : *{usersList}">
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].id}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].firstName}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].lastName}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].userName}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].password}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].email}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].enabled}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].roles}" autofocus="autofocus" />
-
+                
+				
+				<td></td>
                 <td th:text="*{usersList[__${itemStat.index}__].userName}"></td>
                 <td th:text="*{usersList[__${itemStat.index}__].firstName}"></td>
                 <td th:text="*{usersList[__${itemStat.index}__].lastName}"></td>
@@ -47,6 +42,14 @@
                       <option th:value="'Rejected'" th:text="Rejected" th:selected="*{usersList[__${itemStat.index}__].membership == 'Rejected'}">Rejected</option>
                   </select>
                 </td>
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].id}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].firstName}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].lastName}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].userName}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].password}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].email}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].enabled}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].roles}" autofocus="autofocus" />
               </tr>
             </tbody>
           </table>
@@ -55,9 +58,10 @@
         <h3> Confirmed Members </h3>
         <form action="#" th:object="${confirmedDTO}" method="post" th:action="@{/membership/update}">
             <input sec:authorize="hasAnyAuthority('ADMIN')" type="submit" id="submitButton" th:value="Save">
-          <table class="table table-striped table-hover">
+          <table class="table table-striped table-hover css-serial">
             <thead>
               <tr>
+              	<th>#</th>
                 <th>Username</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -68,15 +72,8 @@
             <tbody>
 
           <tr th:each="user, itemStat : *{usersList}">
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].id}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].firstName}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].lastName}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].userName}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].password}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].email}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].enabled}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].roles}" autofocus="autofocus" />
-
+               
+				<td></td>
                 <td th:text="*{usersList[__${itemStat.index}__].userName}"></td>
                 <td th:text="*{usersList[__${itemStat.index}__].firstName}"></td>
                 <td th:text="*{usersList[__${itemStat.index}__].lastName}"></td>
@@ -88,6 +85,15 @@
                       <option th:value="'Rejected'" th:text="Rejected" th:selected="*{usersList[__${itemStat.index}__].membership == 'Rejected'}">Rejected</option>
                   </select>
                 </td>
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].id}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].firstName}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].lastName}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].userName}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].password}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].email}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].enabled}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].roles}" autofocus="autofocus" />
+                
               </tr>
             </tbody>
           </table>
@@ -96,9 +102,10 @@
         <h3> Rejected Requests </h3>
         <form action="#" th:object="${rejDTO}" method="post" th:action="@{/membership/update}">
             <input sec:authorize="hasAnyAuthority('ADMIN')" type="submit" id="submitButton" th:value="Save">
-          <table class="table table-striped table-hover">
+          <table class="table table-striped table-hover css-serial">
             <thead>
               <tr>
+              	<th>#</th>
                 <th>Username</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -109,15 +116,7 @@
             <tbody>
 
           <tr th:each="user, itemStat : *{usersList}">
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].id}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].firstName}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].lastName}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].userName}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].password}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].email}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].enabled}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].roles}" autofocus="autofocus" />
-
+				<td></td>
                 <td th:text="*{usersList[__${itemStat.index}__].userName}"></td>
                 <td th:text="*{usersList[__${itemStat.index}__].firstName}"></td>
                 <td th:text="*{usersList[__${itemStat.index}__].lastName}"></td>
@@ -129,6 +128,15 @@
                       <option th:value="'Rejected'" th:text="Rejected" th:selected="*{usersList[__${itemStat.index}__].membership == 'Rejected'}">Rejected</option>
                   </select>
                 </td>
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].id}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].firstName}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].lastName}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].userName}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].password}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].email}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].enabled}" autofocus="autofocus" />
+                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].roles}" autofocus="autofocus" />
+					
               </tr>
             </tbody>
           </table>

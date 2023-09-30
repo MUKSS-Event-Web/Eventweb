@@ -6,6 +6,7 @@
 >
 <head>
     <title>User List View</title>
+
 </head>
  
 <body>
@@ -13,9 +14,10 @@
       <fieldset>
       	<h3> User List View </h3>
           <form action="#" th:object="${ulist}">
-          <table class="table table-striped table-hover">
+          <table class="table table-striped table-hover css-serial">
             <thead>
               <tr>
+              	<th>#</th>
               	<th>Database ID</th>
                 <th>Student ID</th>
                 <th>First Name</th>
@@ -27,6 +29,14 @@
             <tbody>
  
           <tr th:each="user, itemStat : *{usersList}">
+          
+          		<td></td>
+				<td th:text="*{usersList[__${itemStat.index}__].id}"></td>
+                <td th:text="*{usersList[__${itemStat.index}__].userName}"></td>
+                <td th:text="*{usersList[__${itemStat.index}__].firstName}"></td>
+                <td th:text="*{usersList[__${itemStat.index}__].lastName}"></td>
+                <td th:text="*{usersList[__${itemStat.index}__].email}"></td>
+                <td th:text="*{usersList[__${itemStat.index}__].membership}"></td>
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].id}" autofocus="autofocus" />
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].firstName}" autofocus="autofocus" />
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].lastName}" autofocus="autofocus" />
@@ -36,12 +46,7 @@
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].enabled}" autofocus="autofocus" />
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].roles}" autofocus="autofocus" />
  
-				<td th:text="*{usersList[__${itemStat.index}__].id}"></td>
-                <td th:text="*{usersList[__${itemStat.index}__].userName}"></td>
-                <td th:text="*{usersList[__${itemStat.index}__].firstName}"></td>
-                <td th:text="*{usersList[__${itemStat.index}__].lastName}"></td>
-                <td th:text="*{usersList[__${itemStat.index}__].email}"></td>
-                <td th:text="*{usersList[__${itemStat.index}__].membership}"></td>
+ 				
  
               </tr>
             </tbody>

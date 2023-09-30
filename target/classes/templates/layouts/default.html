@@ -25,6 +25,19 @@
 		.modal {
 		  --bs-modal-color: black;
 		}
+		
+		.css-serial {
+		    counter-reset: row-num -1; /* Set the serial number counter to 0 */
+		}
+		
+		.css-serial tr{
+		    counter-increment: row-num; /* Set the serial number counter to 0 */
+		}
+		
+	    .css-serial tr td:first-child::before {
+	        content: counter(row-num);
+	    }
+	    
     </style>
 </head>
 <body>

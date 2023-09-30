@@ -126,6 +126,7 @@
     .table td:last-child {
       border-right: none;
     }
+
   </style>
 	
 </head>
@@ -171,9 +172,10 @@
 		<form action="#" th:action="@{/attends/editAttends?(eventId=${event.id})}" method="post" th:object="${attendsForm}">
 		<fieldset>
 			<input sec:authorize="hasAnyAuthority('ADMIN')" type="submit" id="submitButton" th:value="Save">
-			<table class="table table-striped table-hover">
+			<table class="table table-striped table-hover css-serial">
 				<thead>
 					<tr>
+						<th>#</th>
 						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Student ID</th>
@@ -185,12 +187,8 @@
 				</thead>
 				<tbody>
 					<tr th:each="attend, itemStat : *{attendList}">
-					<!-- Hidden form (Temporary Fix) -->
-					<input class="form-control" type="hidden" id="id" th:field="*{attendList[__${itemStat.index}__].id}" autofocus="autofocus" />
-					<input class="form-control" type="hidden" id="id" th:field="*{attendList[__${itemStat.index}__].bankName}" autofocus="autofocus" />
-					<input class="form-control" type="hidden" id="id" th:field="*{attendList[__${itemStat.index}__].user}" autofocus="autofocus" />
-					<input class="form-control" type="hidden" id="id" th:field="*{attendList[__${itemStat.index}__].event}" autofocus="autofocus" />
-
+					
+						<td></td>
 						<td th:text="*{attendList[__${itemStat.index}__].user?.firstName}"/></td>
 						<td th:text="*{attendList[__${itemStat.index}__].user?.lastName}"/></td>
 						<td th:text="*{attendList[__${itemStat.index}__].user?.userName}"/></td>
@@ -204,6 +202,13 @@
     							<option th:value="'Rejected'" th:text="Rejected" th:selected="*{attendList[__${itemStat.index}__].status == 'Rejected'}">Rejected</option>
 							</select>
 						</td>
+						
+						<!-- Hidden form (Temporary Fix) -->
+					<input class="form-control" type="hidden" id="id" th:field="*{attendList[__${itemStat.index}__].id}" autofocus="autofocus" />
+					<input class="form-control" type="hidden" id="id" th:field="*{attendList[__${itemStat.index}__].bankName}" autofocus="autofocus" />
+					<input class="form-control" type="hidden" id="id" th:field="*{attendList[__${itemStat.index}__].user}" autofocus="autofocus" />
+					<input class="form-control" type="hidden" id="id" th:field="*{attendList[__${itemStat.index}__].event}" autofocus="autofocus" />
+						
 					</tr>
 				</tbody>
 			</table>
