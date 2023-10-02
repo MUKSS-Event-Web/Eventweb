@@ -107,7 +107,16 @@ public class EventsController {
 		AttendsDTO attendsForm = new AttendsDTO();
 		AttendsDTO ownatt = new AttendsDTO();
 		List<Attend> attlist = event.getAttends();
-		attendsForm.setAttendList(attlist);
+		List<Attend> sortedatt = new ArrayList<Attend>();
+		
+		for (int i=0; i < attlist.size(); i++) {
+			if (attlist.get(i).getStatus().contains("firm") || attlist.get(i).getStatus().contains("ting")) {
+				sortedatt.add(attlist.get(i));
+			}
+		}
+		sortedatt.sort((a, b) -> a.getTimeUploaded().compareTo(b.getTimeUploaded()) == 0 ? a.getUser().getLastName().compareTo(b.getUser().getLastName()) : a.getTimeUploaded().compareTo(b.getTimeUploaded()));
+		
+		attendsForm.setAttendList(sortedatt);
 		
 		// set author info and time info here
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -150,14 +159,20 @@ public class EventsController {
 		String imageString = Base64.getEncoder().encodeToString(event.getData());
 		
 		AttendsDTO attendsForm = new AttendsDTO();
+		AttendsDTO rejForm = new AttendsDTO();
 		List<Attend> attlist = event.getAttends();
 		List<Attend> flist = new ArrayList<Attend>();
+		List<Attend> rlist = new ArrayList<Attend>();
 		for (int i=0; i < attlist.size(); i++) {
 			if (attlist.get(i).getStatus().contains("firm")) {
 				flist.add(attlist.get(i));
 			}
+			if (attlist.get(i).getStatus().contains("ject")) {
+				rlist.add(attlist.get(i));
+			}
 		}
 		attendsForm.setAttendList(flist);
+		rejForm.setAttendList(rlist);
 
 		// attend 추가		
 		model.addAttribute("event", event);
@@ -165,6 +180,7 @@ public class EventsController {
 		model.addAttribute("imageFileType", event.getImageFileType());
 		
 		model.addAttribute("attendsForm", attendsForm);
+		model.addAttribute("rejForm", rejForm);
 		
 		// 'eattend' 객체 추가
 		if (!model.containsAttribute("eattend")) {
