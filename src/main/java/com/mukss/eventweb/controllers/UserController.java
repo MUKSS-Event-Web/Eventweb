@@ -70,8 +70,9 @@ public class UserController {
 		List<User> memlist = new ArrayList<User>();
 		for (User u : ulist) {
 			memlist.add(u);
- 
 		}
+		
+		memlist.sort((a, b) -> Long.valueOf(a.getId()).compareTo(Long.valueOf(b.getId())));
  
 		MembershipsDTO membershipsDTO = new MembershipsDTO();
 		membershipsDTO.setUsersList(memlist);

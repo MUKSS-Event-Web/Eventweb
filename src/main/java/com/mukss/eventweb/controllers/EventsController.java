@@ -114,7 +114,7 @@ public class EventsController {
 				sortedatt.add(attlist.get(i));
 			}
 		}
-		sortedatt.sort((a, b) -> a.getTimeUploaded().compareTo(b.getTimeUploaded()) == 0 ? a.getUser().getLastName().compareTo(b.getUser().getLastName()) : a.getTimeUploaded().compareTo(b.getTimeUploaded()));
+		sortedatt.sort((a, b) -> Long.valueOf(a.getId()).compareTo(Long.valueOf(b.getId())));
 		
 		attendsForm.setAttendList(sortedatt);
 		
@@ -171,6 +171,10 @@ public class EventsController {
 				rlist.add(attlist.get(i));
 			}
 		}
+		
+		flist.sort((a, b) -> Long.valueOf(a.getId()).compareTo(Long.valueOf(b.getId())));
+		rlist.sort((a, b) -> Long.valueOf(a.getId()).compareTo(Long.valueOf(b.getId())));
+		
 		attendsForm.setAttendList(flist);
 		rejForm.setAttendList(rlist);
 
