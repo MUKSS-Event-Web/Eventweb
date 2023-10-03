@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.FetchType;
@@ -25,15 +26,19 @@ public class CourseComment {
 	private long id;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
-	private LocalDateTime timeUploaded;
-	
-	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private LocalDateTime lastEdited;
 	
 	@NotEmpty
+	@Column(columnDefinition = "TEXT")
 	private String comment;
 	
+	private String contact;
+	
+	@NotEmpty
+	private String semester;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="course_id", nullable=false)
 	private Course course;
 	
 	@OneToOne(fetch=FetchType.LAZY)
@@ -47,13 +52,6 @@ public class CourseComment {
 		this.id = id;
 	}
 
-	public LocalDateTime getTimeUploaded() {
-		return timeUploaded;
-	}
-
-	public void setTimeUploaded(LocalDateTime timeUploaded) {
-		this.timeUploaded = timeUploaded;
-	}
 
 	public LocalDateTime getLastEdited() {
 		return lastEdited;
@@ -61,6 +59,22 @@ public class CourseComment {
 
 	public void setLastEdited(LocalDateTime lastEdited) {
 		this.lastEdited = lastEdited;
+	}
+	
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+	
+	public String getSemester() {
+		return semester;
+	}
+
+	public void setSemester(String semester) {
+		this.semester = semester;
 	}
 
 	public String getComment() {
