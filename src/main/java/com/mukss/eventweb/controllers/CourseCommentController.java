@@ -71,7 +71,7 @@ public class CourseCommentController {
         ecomment.setLastEdited(LocalDateTime.now());
         ecomment.setCourse(course);
         courseCommentService.save(ecomment);
-        redirectAttrs.addFlashAttribute("ok_message", "New attend added.");
+        redirectAttrs.addFlashAttribute("ok_message", "New review added.");
 
         // return to original url upon saving
         return "redirect:/courses/" + courseId;

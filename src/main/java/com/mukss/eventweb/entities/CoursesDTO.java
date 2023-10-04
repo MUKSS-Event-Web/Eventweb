@@ -4,14 +4,14 @@ import java.util.List;
 
 public class CoursesDTO {
 	
-	private List<CourseComment> commentlist;
+	public List<CourseComment> commentList;
 
 	public List<CourseComment> getCommentList() {
-		return commentlist;
+		return commentList;
 	}
 
-	public void setCommentList(List<CourseComment> commentlist) {
-		this.commentlist = commentlist;
+	public void setCommentList(List<CourseComment> commentList) {
+		this.commentList = commentList;
 	}
 
 }

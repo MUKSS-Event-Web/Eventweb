@@ -81,17 +81,17 @@ public class CourseController {
 			user = ((CustomUserDetails)principal).getUser();
 		}
 		// handle NoAuth
-		if (user == null) {
+//		if (user == null) {
 			for (int i=0; i < fullcommlist.size(); i++) {
 				sortedcomm.add(fullcommlist.get(i));
 			}
-		} else {
-			for (int i=0; i < fullcommlist.size(); i++) {
-				if (fullcommlist.get(i).getUser().getId() != user.getId()) {
-					sortedcomm.add(fullcommlist.get(i));
-				}
-			}
-		}
+//		} else {
+//			for (int i=0; i < fullcommlist.size(); i++) {
+//				if (fullcommlist.get(i).getUser().getId() != user.getId()) {
+//					sortedcomm.add(fullcommlist.get(i));
+//				}
+//			}
+//		}
 		// non-user owned comment
 		sortedcomm.sort((a, b) -> Long.valueOf(a.getId()).compareTo(Long.valueOf(b.getId())));
 		
@@ -109,9 +109,11 @@ public class CourseController {
 				}
 			}
 		}
+		commlist.setCommentList(sortedcomm);
 		owncomm.setCommentList(clist);
+		model.addAttribute("ownlist", clist);
 		// other ppl's comments
-		model.addAttribute("sortedcomm", sortedcomm);
+		model.addAttribute("sortedcomm", commlist);
 		// own comments
 		model.addAttribute("owncomm", owncomm);
 		
