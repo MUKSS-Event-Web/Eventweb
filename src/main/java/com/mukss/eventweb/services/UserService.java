@@ -20,4 +20,6 @@ public interface UserService {
 	public void updateUser(User user, long id);
 	
 	public List<User> findBymembership(String membership);
+	
+	public void deleteById(long id);
 }

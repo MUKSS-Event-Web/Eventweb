@@ -58,6 +58,9 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findBymembership(membership);
 	}
 
-
+	@Override
+	public void deleteById(long id) {
+		userRepository.deleteById(id);
+	}
 
 }

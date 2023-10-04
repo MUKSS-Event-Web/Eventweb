@@ -81,6 +81,14 @@ public class UserController {
  
 		return "users/list";
 	}
+	
+	// NAVIGATING TO THIS SUBURL DELETES THE ASSOCIATED USER
+	@GetMapping ("deleteUser/{id}")
+	public String deleteUser(@PathVariable("id") long id, RedirectAttributes redirectAttrs) {
+		userService.deleteById(id);
+		redirectAttrs.addFlashAttribute("ok_message", "User deleted.");
+		return "redirect:/users/list";
+	}
 //	
 //	
 //	@PostMapping(value = "/new", consumes = MediaType.ALL_VALUE)
