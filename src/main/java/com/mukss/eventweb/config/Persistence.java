@@ -19,6 +19,8 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
+// THIS FILE IS FOR POSTGRESQL
+
 @Configuration
 @Profile("default")
 public class Persistence {
