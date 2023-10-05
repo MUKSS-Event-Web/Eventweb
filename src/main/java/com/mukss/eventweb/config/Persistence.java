@@ -1,5 +1,5 @@
 package com.mukss.eventweb.config;
-//import java.nio.file.Path;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.persistence.EntityManagerFactory;
@@ -29,24 +29,24 @@ public class Persistence {
 	private final static String PACKAGES = "com.mukss.eventweb.entities";
 
 	// Connection properties.
-//	private final static Path DB_PATH = Paths.get(System.getProperty("user.dir"), "db", "manchester-inside-dev");
-//	private final static String DB_OPTS = "DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE";
+	private final static Path DB_PATH = Paths.get(System.getProperty("user.dir"), "db", "manchester-inside-dev");
+	private final static String DB_OPTS = "DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE";
 
 	// Hibernate properties.
 	private final static boolean H2_SHOW_SQL = true;
-//	private final static String H2_USERNAME = "h2";
-//	private final static String H2_PASSWORD = "spring";
+	private final static String H2_USERNAME = "h2";
+	private final static String H2_PASSWORD = "spring";
 
 	@Bean
 	public DataSource dataSource() {
-		String dbUrl = "jdbc:postgresql://dpg-ck4scsd8ggls739be9m0-a:5432/mukss";
+		String dbUrl = "jdbc:h2:" + DB_PATH + ";" + DB_OPTS;
 
 
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setDriverClassName("org.h2.Driver");
 		dataSource.setUrl(dbUrl);
-		dataSource.setUsername("mukss_user");
-		dataSource.setPassword("Xlcc3apYhdkmpLOWPOOt8LSTOhC0zlAQ");
+		dataSource.setUsername(H2_USERNAME);
+		dataSource.setPassword(H2_PASSWORD);
 
 		log.info("Database URL set: " + dbUrl);
 
@@ -67,7 +67,7 @@ public class Persistence {
 	@Bean
 	public JpaVendorAdapter jpaVendorAdapter() {
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-		adapter.setDatabase(Database.POSTGRESQL);
+		adapter.setDatabase(Database.H2);
 		adapter.setShowSql(H2_SHOW_SQL);
 		adapter.setGenerateDdl(true);
 

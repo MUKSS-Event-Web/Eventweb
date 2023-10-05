@@ -247,17 +247,21 @@
 		
 		<!-- Attend Form -->
 		<h1><i class="fas fa-user-plus"></i> Attend Event</h1>
-		
-		<form sec:authorize="hasAnyAuthority('MEMBER', 'USER')" action="#" th:action="@{/attends?(eventId=${event.id})}" th:object="${eattend}" method="post">			
-	      	<div class="form-group">
-	      	<!-- Hidden form that stores id -->
-	      	<input class="form-control" type="hidden" id="id" th:field="*{id}" autofocus="autofocus" />
-		        <label for="name">Contact (Phone number/Kakaotalk):</label>
-		        <textarea class="form-control my-3" type="text" id="bankName" th:field="*{bankName}" rows="2" placeholder="Enter contact information..." autofocus="autofocus"></textarea>
-		        <p class="text-danger" th:if="${#fields.hasErrors('bankName')}" th:errors="*{bankName}">errors</p>
-	      	</div>
-      	<button class="btn save-btn mb-2" type="submit"><i class="fas fa-bookmark" aria-hidden="true"></i> Save</button>
-    	</form>
+			
+		<span th:unless="${event.location == '1'}">
+			<form sec:authorize="hasAnyAuthority('MEMBER', 'USER')" action="#" th:action="@{/attends?(eventId=${event.id})}" th:object="${eattend}" method="post">			
+		      	<div class="form-group">
+		      	<!-- Hidden form that stores id -->
+		      	<input class="form-control" type="hidden" id="id" th:field="*{id}" autofocus="autofocus" />
+			        <label for="name">Contact (Phone number/Kakaotalk):</label>
+			        <textarea class="form-control my-3" type="text" id="bankName" th:field="*{bankName}" rows="2" placeholder="Enter contact information..." autofocus="autofocus"></textarea>
+			        <p class="text-danger" th:if="${#fields.hasErrors('bankName')}" th:errors="*{bankName}">errors</p>
+		      	</div>
+	      	<button class="btn save-btn mb-2" type="submit"><i class="fas fa-bookmark" aria-hidden="true"></i> Save</button>
+	    	</form>
+		</span>
+		<h4 style="text-align: center;" th:if=="${event.location == '1'}"> The application period for this event is now over. <h4>
+		<h4 style="text-align: center;" th:if=="${event.location == '1'}"> 이미 신청 기간이 지난 이벤트입니다. <h4>
 		
 		<a class="btn list-btn mb-2" role="button" href="/events"><i class="fas fa-home" aria-hidden="true"></i> Back to list</a>
 	</div>  

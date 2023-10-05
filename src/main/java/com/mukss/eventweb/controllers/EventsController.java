@@ -259,6 +259,7 @@ public class EventsController {
 			return "/events/update";
 		}
 		
+		retrievedEvent.setLocation(event.getLocation());
 		retrievedEvent.setTitle(event.getTitle());
 		retrievedEvent.setContent(event.getContent());	
 		retrievedEvent.setTime(event.getTime());

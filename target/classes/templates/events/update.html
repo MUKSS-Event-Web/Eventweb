@@ -100,10 +100,17 @@
       </div>
       
       <div class="form-group mb-3">
+        <label for="location" class="mb-2">이벤트 마감</label>
+        <input class="form-control" type="text" id="location" th:field="*{location}" placeholder="1=마감, 그 외=오픈" autofocus="autofocus" />
+        <p class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}">errors</p>
+      </div>
+      
+      <div class="form-group mb-3">
         <label for="name" class="mb-2">Event content</label>
         <textarea class="form-control mb-3" type="text" id="content" th:field="*{content}" rows="5" placeholder="Enter event content" autofocus="autofocus" />
         <p class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">errors</p>
       </div>
+      
       
       <button class="save-btn" type="submit"><i class="fas fa-bookmark" aria-hidden="true"></i> Save</button>
       <a class="cancel-btn" role="button" th:href="@{/events/{id}(id=${event.id})}"><i class="fas fa-ban" aria-hidden="true"></i> Cancel</a>
