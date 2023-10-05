@@ -65,6 +65,12 @@ public class Security extends WebSecurityConfigurerAdapter {
 			new AntPathRequestMatcher("/membership", "GET"),
 			new AntPathRequestMatcher("/membership", "POST"),
 			new AntPathRequestMatcher("/attends", "POST"),
+			new AntPathRequestMatcher("/courses", "GET"),
+			new AntPathRequestMatcher("/courses", "POST"),
+			new AntPathRequestMatcher("/courses/**", "GET"),
+			new AntPathRequestMatcher("/courses/**", "POST"),
+			new AntPathRequestMatcher("/comments", "POST"),
+
 			
 	};
 

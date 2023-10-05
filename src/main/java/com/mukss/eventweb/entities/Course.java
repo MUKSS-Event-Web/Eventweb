@@ -1,13 +1,16 @@
 package com.mukss.eventweb.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -23,19 +26,18 @@ public class Course {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
+	@NotEmpty
 	private String courseName;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING)
-	private LocalDateTime time;
+	@NotEmpty
+	@Column(unique=true)
+	private String courseCode;
 	
 	@NotEmpty
-	private String description;
+	private String school;
 	
-	private Float ratings = 0.0f;
-	
-	@NotNull
-	@ManyToOne
-	private School school;
+	@OneToMany(mappedBy="course", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<CourseComment> comments;
 
 	public long getId() {
 		return id;
@@ -52,36 +54,29 @@ public class Course {
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-
-	public LocalDateTime getTime() {
-		return time;
+	
+	public String getCourseCode() {
+		return courseCode;
 	}
 
-	public void setTime(LocalDateTime time) {
-		this.time = time;
+	public void setCourseCode(String courseCode) {
+		this.courseCode = courseCode;
+	}
+	
+	public List<CourseComment> getComments(){
+		return comments;
+	}
+	
+	public void addAttend(CourseComment comment) {
+		this.comments.add(comment);
 	}
 
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Float getRatings() {
-		return ratings;
-	}
-
-	public void setRatings(Float ratings) {
-		this.ratings = ratings;
-	}
-
-	public School getSchool() {
+	public String getSchool() {
 		return school;
 	}
 
-	public void setSchool(School school) {
+	public void setSchool(String school) {
 		this.school = school;
 	}
 }
