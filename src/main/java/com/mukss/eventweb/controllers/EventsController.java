@@ -172,7 +172,7 @@ public class EventsController {
 			}
 		}
 		// Lname -> Fname -> ID sort, ascending
-		flist.sort((a, b) -> Long.valueOf(a.getId()).compareTo(Long.valueOf(b.getId())));
+//		flist.sort((a, b) -> Long.valueOf(a.getId()).compareTo(Long.valueOf(b.getId())));
 		flist.sort((a, b) -> a.getUser().getFirstName().compareTo(a.getUser().getFirstName()));
 		flist.sort((a, b) -> a.getUser().getLastName().compareTo(a.getUser().getLastName()));
 		rlist.sort((a, b) -> Long.valueOf(a.getId()).compareTo(Long.valueOf(b.getId())));
