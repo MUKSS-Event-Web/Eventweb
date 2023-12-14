@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
- 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
  
@@ -31,7 +32,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  
@@ -45,6 +48,9 @@ import com.mukss.eventweb.services.EventService;
 import com.mukss.eventweb.services.UserService;
 import com.mukss.eventweb.entities.Attend;
 import com.mukss.eventweb.entities.AttendsDTO;
+
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
  
 @Controller
 @RequestMapping(value = "/users", produces = MediaType.TEXT_HTML_VALUE)
@@ -52,6 +58,8 @@ public class UserController {
  
 	@Autowired
 	private UserService userService;
+	
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
  
 	// TODO: Handle not_found properly
 	@ExceptionHandler(UserNotFoundException.class)
@@ -89,81 +97,22 @@ public class UserController {
 		redirectAttrs.addFlashAttribute("ok_message", "User deleted.");
 		return "redirect:/users/list";
 	}
-//	
-//	
-//	@PostMapping(value = "/new", consumes = MediaType.ALL_VALUE)
-//	public String createEvent(@RequestParam("imgFile") MultipartFile imgFile, @RequestBody @Valid @ModelAttribute Event event, BindingResult errors,
-//			Model model, RedirectAttributes redirectAttrs) throws IOException {
-//		
-//		if (errors.hasErrors()) {
-//			model.addAttribute("event", event);
-//			return "events/new";
-//		}
-//
-//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		User user = null;
-//		if (principal instanceof CustomUserDetails) {
-//			user = ((CustomUserDetails)principal).getUser();
-//		} 		
-//		event.setUser(user);
-//		event.setTimeUploaded(LocalDateTime.now());
-//		
-//		// Saving an image for an event
-//		String fileName = StringUtils.cleanPath(imgFile.getOriginalFilename());
-//		event.setImageName(fileName);
-//		event.setImageFileType(imgFile.getContentType());
-//		event.setData(imgFile.getBytes());
-//		
-//		// save post after automatically adding relevant meta info
-//		eventService.save(event);
-//		redirectAttrs.addFlashAttribute("ok_message", "New event added.");
-//
-//		return "redirect:/events";
-//	}
-//		
-//	// Update new event
-//	@GetMapping("/update/{id}")
-//	public String updateEvent(@PathVariable("id") long id, Model model) {
-//		// if model does not have event, initialize a new event
-//		if (!model.containsAttribute("event")) {
-//			model.addAttribute("event", new Event());
-//		}
-//		// load event by id
-//		Event event = eventService.findById(id).orElseThrow(()-> new EventNotFoundException(id));
-//		model.addAttribute("event", event);
-//		
-//		return "events/update";
-//	}
-//	
-//	@PostMapping(value = "/update", consumes = MediaType.ALL_VALUE)
-//	public String updateEvent(@RequestBody @Valid @ModelAttribute Event event, BindingResult errors,
-//			Model model, RedirectAttributes redirectAttrs) {
-//		
-//		Event retrievedEvent = eventService.findById(event.getId()).orElseThrow(()-> new EventNotFoundException(event.getId()));
-//		
-//		if (errors.hasErrors()) {
-//			model.addAttribute("event", retrievedEvent);
-//			return "/events/update";
-//		}
-//		
-//		retrievedEvent.setTitle(event.getTitle());
-//		retrievedEvent.setContent(event.getContent());	
-//		retrievedEvent.setTime(event.getTime());
-//		retrievedEvent.setDate(event.getDate());
-//
-//		
-//		// save update event info
-//		eventService.save(retrievedEvent);
-//		redirectAttrs.addFlashAttribute("ok_message", "Event " + retrievedEvent.getTitle() + " was updated.");
-//		return "redirect:/events";
-//	}
-//	
-//	//delete one greeting
-//	@DeleteMapping("/{id}")
-//	public String deletePost(@PathVariable("id") long id, RedirectAttributes redirectAttrs) {
-//		eventService.deleteById(id);
-//		redirectAttrs.addFlashAttribute("ok_message", "Event deleted.");
-//		return "redirect:/events";
-//	}
-//	
+	
+	// Have to refactor later. This repo might be dump in the future.
+	@GetMapping("{userName}/{password}")
+	public ResponseEntity<?> updateUserPassword(@PathVariable("userName") String userName, @PathVariable("password") String password) {
+		Optional<User> user = userService.findByName(userName);
+		
+		if (user.isEmpty()) {
+			return new ResponseEntity<>(BAD_REQUEST);
+		}
+		
+		User notNullUser = user.get();
+		notNullUser.setPassword(passwordEncoder.encode(password));
+		
+		userService.save(notNullUser);
+		
+		return new ResponseEntity<>(NO_CONTENT);
+	}
+
 }
