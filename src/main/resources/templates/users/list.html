@@ -24,6 +24,7 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Membership Status</th>
+                <th>Password</th>
               </tr>
             </thead>
             <tbody>
@@ -37,11 +38,11 @@
                 <td th:text="*{usersList[__${itemStat.index}__].lastName}"></td>
                 <td th:text="*{usersList[__${itemStat.index}__].email}"></td>
                 <td th:text="*{usersList[__${itemStat.index}__].membership}"></td>
+                <td th:text="*{usersList[__${itemStat.index}__].password}"></td>
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].id}" autofocus="autofocus" />
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].firstName}" autofocus="autofocus" />
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].lastName}" autofocus="autofocus" />
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].userName}" autofocus="autofocus" />
-                <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].password}" autofocus="autofocus" />
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].email}" autofocus="autofocus" />
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].enabled}" autofocus="autofocus" />
                 <input type="hidden" id="id" th:field="*{usersList[__${itemStat.index}__].roles}" autofocus="autofocus" />
